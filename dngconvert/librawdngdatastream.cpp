@@ -40,9 +40,10 @@ int LibRawDngDataStream::valid()
 
 int LibRawDngDataStream::read(void* ptr, size_t size, size_t nmemb)
 {
+/*
     if (substream)
         return substream->read(ptr, size, nmemb);
-
+*/
     uint64 oldPos = m_Stream.Position();
     uint64 bytes = min(static_cast<uint64>(size*nmemb), m_Stream.Length() - oldPos);
     m_Stream.Get(ptr, static_cast<uint32>(bytes));
@@ -51,9 +52,10 @@ int LibRawDngDataStream::read(void* ptr, size_t size, size_t nmemb)
 
 int LibRawDngDataStream::seek(INT64 offset, int whence)
 {
+/*
     if (substream)
         return substream->seek(offset, whence);
-
+*/
     uint64 newIdx = 0;
     uint64 length = m_Stream.Length();
     switch (whence)
@@ -79,33 +81,37 @@ int LibRawDngDataStream::seek(INT64 offset, int whence)
 
 INT64 LibRawDngDataStream::tell()
 {
+/*
     if (substream)
         return substream->tell();
-
+*/
     return m_Stream.Position();
 }
 
 INT64 LibRawDngDataStream::size()
 {
+/*
     if (substream)
         return substream->size();
-
-    return m_Stream.Lenght();
+*/
+    return m_Stream.Length();
 }
 
 int LibRawDngDataStream::get_char()
 {
+/*
     if (substream)
         return substream->get_char();
-
+*/
     return m_Stream.Get_uint8();
 }
 
 char* LibRawDngDataStream::gets(char* str, int size)
 {
+/*
     if (substream)
         return substream->gets(str, size);
-
+*/
     memset(str, 0, size);
 
     int32 index = 0;
@@ -126,9 +132,10 @@ char* LibRawDngDataStream::gets(char* str, int size)
 
 int LibRawDngDataStream::scanf_one(const char* fmt, void* val)
 {
+/*
     if (substream)
         return substream->scanf_one(fmt, val);
-
+*/
     try
     {
         /* HUGE ASSUMPTION: *fmt is either "%d" or "%f" */
@@ -153,9 +160,10 @@ int LibRawDngDataStream::scanf_one(const char* fmt, void* val)
 
 int LibRawDngDataStream::eof()
 {
+/*
     if (substream)
         return substream->eof();
-
+*/
     return m_Stream.Position() >= m_Stream.Length();
 }
 

@@ -98,7 +98,7 @@ void LibRawImage::Parse(dng_stream &stream)
     rawStream.Get()->seek(0, SEEK_SET);
     
     rawProcessor->imgdata.params.output_bps = 16;
-    rawProcessor->imgdata.params.document_mode = 2;
+//    rawProcessor->imgdata.params.document_mode = 2;
     rawProcessor->imgdata.params.shot_select = 0;
 #if (LIBRAW_COMPILE_CHECK_VERSION_NOTLESS(0,14))
     {
@@ -223,7 +223,7 @@ void LibRawImage::Parse(dng_stream &stream)
 #if (LIBRAW_COMPILE_CHECK_VERSION_NOTLESS(0,14))
     libraw_decoder_info_t decoder_info;
     rawProcessor->get_decoder_info(&decoder_info);
-
+/*
     if (decoder_info.decoder_flags & LIBRAW_DECODER_LEGACY)
     {
         unsigned short* output = (unsigned short*)m_Buffer.fData;
@@ -241,6 +241,7 @@ void LibRawImage::Parse(dng_stream &stream)
         }
     }
     else if(decoder_info.decoder_flags & LIBRAW_DECODER_FLATFIELD)
+*/
     {
         unsigned short* output = (unsigned short*)m_Buffer.fData;
 
@@ -289,12 +290,14 @@ void LibRawImage::Parse(dng_stream &stream)
         }
 
     }
+/*
     else
     {
         printf("LibRaw: unsupported decoder\n");
         rawProcessor->recycle();
         return;
     }
+*/
 #else
     if (m_Pattern == 0)
     {
