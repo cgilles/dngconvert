@@ -41,6 +41,7 @@ public:
     virtual int read(void* ptr, size_t size, size_t nmemb);
     virtual int seek(INT64 offset, int whence);
     virtual INT64 tell();
+    virtual INT64 size();
     virtual int get_char();
     virtual char* gets(char* str, int size);
     virtual int scanf_one(const char* fmt, void* val);

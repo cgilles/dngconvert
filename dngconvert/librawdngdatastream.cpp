@@ -85,6 +85,14 @@ INT64 LibRawDngDataStream::tell()
     return m_Stream.Position();
 }
 
+INT64 LibRawDngDataStream::size()
+{
+    if (substream)
+        return substream->size();
+
+    return m_Stream.Lenght();
+}
+
 int LibRawDngDataStream::get_char()
 {
     if (substream)
