@@ -44,7 +44,7 @@ public:
     virtual Exiv2::byte* mmap(bool isWriteable =false);
     virtual int munmap();
     virtual long tell() const;
-    virtual long size() const;
+    virtual size_t size() const;
     virtual bool isopen() const;
     virtual int error() const;
     virtual bool eof() const;

@@ -22,9 +22,20 @@
 #include "dng_exceptions.h"
 #include "dng_memory_stream.h"
 
+#include <exiv2/exv_conf.h>
 #include <exiv2/futils.hpp>
 #include <exiv2/types.hpp>
+#include <exiv2/version.hpp>
 #include <exiv2/error.hpp>
+
+#ifndef EXIV2_TEST_VERSION
+#    define EXIV2_TEST_VERSION(major,minor,patch) \
+         ( EXIV2_VERSION >= EXIV2_MAKE_VERSION(major,minor,patch) )
+#endif
+
+#if EXIV2_TEST_VERSION(0,27,99)
+#   define AutoPtr UniquePtr
+#endif
 
 using std::min;
 using std::max;
@@ -108,7 +119,7 @@ void Exiv2DngStreamIO::transfer(BasicIo& src)
     // Generic reopen to reset position to start
     if (src.open() != 0)
     {
-        throw Exiv2::Error(9, src.path(), Exiv2::strError());
+        throw Exiv2::Error(Exiv2::kerDataSourceOpenFailed, src.path(), Exiv2::strError());
     }
     m_Stream.SetReadPosition(0);
     m_Stream.SetLength(0);
@@ -116,7 +127,7 @@ void Exiv2DngStreamIO::transfer(BasicIo& src)
     src.close();
 
     if (error() || src.error())
-        throw Exiv2::Error(19, Exiv2::strError());
+        throw Exiv2::Error(Exiv2::kerMemoryTransferFailed, Exiv2::strError());
 }
 
 int Exiv2DngStreamIO::seek(long offset, Position pos)
@@ -164,7 +175,7 @@ long Exiv2DngStreamIO::tell() const
     return (long)m_Stream.Position();
 }
 
-long Exiv2DngStreamIO::size() const
+size_t Exiv2DngStreamIO::size() const
 {
     return (long)m_Stream.Length();
 }

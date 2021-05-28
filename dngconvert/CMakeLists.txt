@@ -2,7 +2,6 @@
 # which point to directories outside the build tree to the install RPATH
 SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
-SET( EXIV2_MIN_VERSION "0.21" )
 FIND_PACKAGE( Exiv2 )
 INCLUDE_DIRECTORIES( ${EXIV2_INCLUDE_DIR} )
 ADD_DEFINITIONS(${EXIV2_DEFINITIONS})
@@ -22,9 +21,9 @@ FIND_PACKAGE( LibRaw )
 INCLUDE_DIRECTORIES( ${LIBRAW_INCLUDE_DIR} )
 ADD_DEFINITIONS(${LIBRAW_DEFINITIONS})
 
-FIND_PACKAGE( LCMS )
-INCLUDE_DIRECTORIES( ${LCMS_INCLUDE_DIR} )
-ADD_DEFINITIONS(${LCMS_DEFINITIONS})
+FIND_PACKAGE( LCMS2 )
+INCLUDE_DIRECTORIES( ${LCMS2_INCLUDE_DIR} )
+ADD_DEFINITIONS(${LCMS2_DEFINITIONS})
 
 
 INCLUDE_DIRECTORIES( ${dngconvert_SOURCE_DIR}/libdng )
@@ -78,7 +77,7 @@ ADD_EXECUTABLE( dngconvert ${DNGCONVERT_SRCS} )
 TARGET_LINK_LIBRARIES(dngconvert ${ZLIB_LIBRARIES}
                                  ${EXIV2_LIBRARIES}
                                  ${LIBRAW_LIBRARIES}
-                                 ${LCMS_LIBRARIES}
+                                 ${LCMS2_LIBRARIES}
                                  ${CMAKE_THREAD_LIBS_INIT}
                                  xmpsdk
                                  dngsdk

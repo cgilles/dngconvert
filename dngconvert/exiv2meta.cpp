@@ -23,8 +23,20 @@
 #include <dng_rational.h>
 #include <dng_orientation.h>
 
+#include <exiv2/exv_conf.h>
 #include <exiv2/exif.hpp>
 #include <exiv2/image.hpp>
+#include <exiv2/version.hpp>
+#include <exiv2/error.hpp>
+
+#ifndef EXIV2_TEST_VERSION
+#    define EXIV2_TEST_VERSION(major,minor,patch) \
+         ( EXIV2_VERSION >= EXIV2_MAKE_VERSION(major,minor,patch) )
+#endif
+
+#if EXIV2_TEST_VERSION(0,27,99)
+#   define AutoPtr UniquePtr
+#endif
 
 #ifdef WIN32
 #define snprintf _snprintf
@@ -566,7 +578,7 @@ void Exiv2Meta::Parse(dng_host &host, dng_stream &stream)
         std::string xmpPacket;
         if (0 != Exiv2::XmpParser::encode(xmpPacket, xmpData))
         {
-            throw Exiv2::Error(1, "Failed to serialize XMP data");
+            throw Exiv2::Error(Exiv2::kerErrorMessage, "Failed to serialize XMP data");
         }
         Exiv2::XmpParser::terminate();
 
