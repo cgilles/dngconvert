@@ -18,8 +18,8 @@ ENDIF(OPENMP_FOUND)
 FIND_PACKAGE(Threads)
 
 FIND_PACKAGE( LibRaw )
-INCLUDE_DIRECTORIES( ${LIBRAW_INCLUDE_DIR} )
-ADD_DEFINITIONS(${LIBRAW_DEFINITIONS})
+INCLUDE_DIRECTORIES( ${LibRaw_INCLUDE_DIR} )
+ADD_DEFINITIONS(${LibRaw_DEFINITIONS})
 
 FIND_PACKAGE( LCMS2 )
 INCLUDE_DIRECTORIES( ${LCMS2_INCLUDE_DIR} )
@@ -76,7 +76,7 @@ ADD_EXECUTABLE( dngconvert ${DNGCONVERT_SRCS} )
 
 TARGET_LINK_LIBRARIES(dngconvert ${ZLIB_LIBRARIES}
                                  ${EXIV2_LIBRARIES}
-                                 ${LIBRAW_LIBRARIES}
+                                 ${LibRaw_LIBRARIES}
                                  ${LCMS2_LIBRARIES}
                                  ${CMAKE_THREAD_LIBS_INIT}
                                  xmpsdk
